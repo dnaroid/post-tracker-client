@@ -1,11 +1,11 @@
+import 'normalize.css'
 import { Provider } from 'unistore/preact'
-import App from './components/app'
-import { createStore } from './helpers/store.helper'
-import './style'
+import App from './components/App'
+import { createStore } from './store'
 
 const store = createStore()
 
 export default () =>
   <Provider store={store}>
-    <App />
+    <App/>
   </Provider>

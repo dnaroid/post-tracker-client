@@ -1,31 +1,16 @@
-import { extend } from 'immutability-helper'
-import { default as create } from 'unistore'
-import devtools from 'unistore/devtools'
-import { DEVELOPMENT, THEME } from '../config/strings'
-import { loadLSObject } from '../helpers/browser.helper'
+import { extend } from 'immutability-helper/index'
 
-// register new operator for immutability-helper
-extend('$delete', (key, original) => {
-  const { [key]: _, ...newState } = original
-  return newState
-})
+export const registerDeleteOpreator = () =>
+  extend('$delete', (key, original) => {
+    const { [key]: _, ...newState } = original
+    return newState
+  })
 
-const defaultSettings = {
-  theme: THEME.LIGHT
+export const combine = (...actions) => store => {
+  let all = {}
+  actions.forEach(a => {
+    const obj = a(store)
+    for (let k in obj) all[k] = obj[k]
+  })
+  return all
 }
-
-const modals = {
-  active: null,
-  props: {}
-}
-
-const settings = loadLSObject('settings', defaultSettings)
-
-const initialState = {
-  settings,
-  modals
-}
-
-export const createStore = () => DEVELOPMENT
-  ? devtools(create(initialState))
-  : create(initialState)

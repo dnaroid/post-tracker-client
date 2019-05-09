@@ -1,11 +1,3 @@
-export const combine = (...actions) => store => {
-  let all = {}
-  actions.forEach(a => {
-    const obj = a(store)
-    for (let k in obj) all[k] = obj[k]
-  })
-  return all
-}
 
 const isObject = v => v && typeof v === 'object' && !Array.isArray(v)
 
