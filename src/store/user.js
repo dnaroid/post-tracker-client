@@ -1,28 +1,31 @@
 import update from 'immutability-helper/index'
 import API from '../config/API'
+import { saveString } from '../helpers/browser.helper'
 
 export default {
 
-  login: (state, email, password) => {
-    console.log('state', state)
+  updateUserProp: (state, key, value) =>
+    update(state, { user: { [key]: { $set: value } } }),
 
-    API.login.post({ email: 'admin@mail.com', password: '12345678' })
-      .then(console.log)
-
-    //return update(state, { user: { [key]: { $set: value } } })
-    return state
+  login: async (state) => {
+    const { email, password } = state.user
+    const { auth_token } = await API.login.post({ email, password })
+    if (!auth_token) { return state }
+    saveString('token', auth_token)
+    return update({ ...state }, { user: { logged: { $set: true } } })
   },
 
-  registerUser: (state, email, password) => {
-    console.log('state', state)
-
-    API.register.post({ email: 'admin@mail.com', password: '12345678' })
-      .then(console.log)
-
-    //return update(state, { user: { [key]: { $set: value } } })
-    return state
+  registerUser: async (state) => {
+    const { email, password } = state.user
+    const { auth_token } = await API.register.post({ email, password })
+    if (!auth_token) { return state }
+    saveString('token', auth_token)
+    return update(state, { user: { logged: { $set: true } } })
   },
 
-  logout: (state) =>
-    update(state, { user: { $set: null } })
+  logout: async (state) => {
+    await API.logout.post()
+    saveString('token', '')
+    return update({ ...state }, { user: { logged: { $set: false } } })
+  }
 }

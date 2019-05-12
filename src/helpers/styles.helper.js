@@ -1,2 +1,2 @@
-export const setByProps = obj =>
-  props => obj[Object.keys(obj).find(k => props[k])] || obj._
+export const props = obj =>
+  props => Object.keys(obj).reduce((a, c) => a + props[c] ? obj[c] : '', '') || ''

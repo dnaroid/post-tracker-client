@@ -1,4 +1,5 @@
 import { extend } from 'immutability-helper/index'
+import { saveObject } from './browser.helper'
 
 export const registerDeleteOpreator = () =>
   extend('$delete', (key, original) => {
@@ -6,11 +7,7 @@ export const registerDeleteOpreator = () =>
     return newState
   })
 
-export const combine = (...actions) => store => {
-  let all = {}
-  actions.forEach(a => {
-    const obj = a(store)
-    for (let k in obj) all[k] = obj[k]
-  })
-  return all
+export const saveState = (key, state) => {
+  saveObject(key, state[key])
+  return state
 }

@@ -1,15 +1,12 @@
+import update from 'immutability-helper'
 import API from '../config/API'
 
 export default {
 
-  syncTracks: (state) => {
-    //return update(state, { tracks: { $set: data } })
-    console.log('API.track', API.track)
-    window.api = API
-    API.tracks.getCollection({})
-      .then((data) => console.log(data))
-
-    return state
+  syncTracks: async (state) => {
+    const tracks = await API.track.collection()
+    if (!tracks) { return state }
+    return update(state, { tracks: { $set: tracks } })
   }
 
 }

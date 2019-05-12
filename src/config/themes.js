@@ -3,12 +3,12 @@ import { THEME } from './strings'
 export default {
 
   [THEME.DARK]: `
-    background-color: 'black;
-    color: 'white;'
+    background-color: black;
+    color: white;'
   `,
 
   [THEME.LIGHT]: `
-    background-color: 'white;
-    color: 'black';
+    background-color: white;
+    color: black';
   `
 }

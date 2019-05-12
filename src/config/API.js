@@ -1,19 +1,16 @@
-import Repoint from 'repoint'
-import { API_HOST } from './strings'
+import Endpoints from '../helpers/Endpoints'
+import { DEVELOPMENT } from './strings'
 
-const repoint = new Repoint({
-  host: API_HOST,
-  fetchOpts: {
-    //credentials: 'include',
-    mode: 'cors',
-    'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'application/json'
-    //'Access-Control-Allow-Credentials': true
-  }
-})
+const API_URL = DEVELOPMENT
+                ? 'http://localhost:5000/api'
+                : 'https://dnaroid.pythonanywhere.com/api'
+
+const ep = new Endpoints(API_URL)
 
 export default {
-  tracks: repoint.generate('tracks'),
-  login: repoint.generate('auth/login'),
-  register: repoint.generate('auth/register')
+  login: ep.add('login'),
+  register: ep.add('register'),
+  logout: ep.add('logout'),
+
+  track: ep.add('track')
 }

@@ -1,32 +1,49 @@
 import { h } from 'preact'
 import scoped from 'scoped-style'
-import themes from '../config/themes'
-import { setByProps } from '../helpers/styles.helper'
+import size from '../config/size'
 
 const styled = scoped(h)
 
-styled.global``
+styled.global`
+  font-size: ${() => size.fontSize}px;
+  div { 
+    background-color: inherit;
+    box-sizing: border-box;
+  }
+`
 
-export default {
+const cs = {
 
   Page: styled('div')`
-    ${({ theme }) => themes[theme]};
+    width: 100%;
+    padding: 0 20px 20px 20px;
+  `,
+
+  Card: styled('div')`
+    padding: 20px;
+    border: 1px solid currentColor;
+  `,
+
+  Button: styled('div')`
+    line-height: ${() => size.inputHeight}px;
+    padding: 0 10px;
   `,
 
   Row: styled('div')`
     display: flex;
     flex-direction: row;
-    align-items: ${setByProps({ center: 'center', _: 'baseline' })};
-    width: ${setByProps({ narrow: 'fit-content', _: '100%' })};
     justify-content: space-between;
-    ${({ narrow }) => narrow && `
-    > div { margin-left: 20px; } 
-    > div:first-child { margin-left: inherit; } `}
+    > div { margin-left: 20px; width: 100%; } 
+    > div:first-child { margin-left: 0; } 
   `,
 
   Col: styled('div')`
     display: flex;
     flex-direction: column;
-    width: ${setByProps({ wide: '100%', _: 'auto' })};
+    justify-content: space-between;
+    > div { margin-top: 20px; } 
+    > div:first-child { margin-top: 0; } 
   `
 }
+
+export default cs
