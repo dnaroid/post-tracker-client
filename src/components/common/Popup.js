@@ -1,6 +1,6 @@
 import { Component, h } from 'preact'
 import scoped from 'scoped-style'
-import size from '../../config/size'
+import { Icon } from './index'
 
 const styled = scoped(h)
 
@@ -11,19 +11,6 @@ const Popup = styled('div')`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
- `
-const Burger = styled('div')`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: ${() => size.inputHeight}px;
-  width: 20px;
-  :hover { opacity: 0.5; }
- `
-const BurgerLine = styled('div')`
-  height: 2px;
-  width: 24px;
-  background-color: currentColor;
  `
 const Cover = styled('div')`
   z-index: 1000;
@@ -50,11 +37,11 @@ export default class extends Component {
   render({ trigger, children }, { active }) {
     return <div>
       <div onClick={this.open}>
-        {trigger || <Burger><BurgerLine/><BurgerLine/><BurgerLine/></Burger>}
+        {trigger || <Icon>menu</Icon>}
       </div>
       {active &&
        <div>
-         <Cover onClick={this.close}/>
+         <Cover onClick={this.close} />
          <Popup onClick={this.close}>
            {children}
          </Popup>

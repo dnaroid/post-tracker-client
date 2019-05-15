@@ -1,16 +1,16 @@
 import { connect } from 'unistore/preact'
+import { Button, Col, Row } from '../components/common'
 import { TextInput } from '../components/common/TextInput'
 import actions from '../config/actions'
-import cs from '../styles/common.styles'
 
 export default connect('user', actions)(
-  ({ user, login, logout, registerUser, updateUserProp }) => <cs.Col>
+  ({ user, login, logout, registerUser, updateUserProp }) => <Col>
     {user.logged ?
-     <cs.Button onClick={logout}>Logout</cs.Button>
+     <Button onClick={logout}>Logout</Button>
                  :
      <form>
-       <cs.Col>
-         <cs.Row>
+       <Col>
+         <Row>
            <TextInput
              onChange={v => updateUserProp('email', v)}
              value={user.email}
@@ -27,11 +27,11 @@ export default connect('user', actions)(
              name='password'
              autocomplete='current-password'
            />
-         </cs.Row>
-         <cs.Row>
-           <cs.Button onClick={login}>Login</cs.Button>
-           <cs.Button onClick={registerUser}>Register</cs.Button>
-         </cs.Row>
-       </cs.Col>
+         </Row>
+         <Row>
+           <Button onClick={login}>Login</Button>
+           <Button onClick={registerUser}>Register</Button>
+         </Row>
+       </Col>
      </form>}
-  </cs.Col>)
+  </Col>)

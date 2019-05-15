@@ -14,11 +14,10 @@
     "preact-cli": "^2.0.0"
   },
   "dependencies": {
-    "immutability-helper": "^3.0.0",
     "normalize.css": "^8.0.1",
     "preact": "^8.2.1",
     "preact-router": "^2.5.5",
-    "scoped-style": "^1.1.2",
-    "unistore": "^3.4.1"
+    "unistore": "^3.4.1",
+    "scoped-style": "^1.1.2"
   }
 }

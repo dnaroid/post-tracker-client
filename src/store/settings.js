@@ -1,15 +1,15 @@
-import update from 'immutability-helper'
-import themes from '../config/themes'
-import { saveState } from '../helpers/store.helper'
+import { updateTheme } from '../helpers/browser.helper'
+import { saveState, setIn } from '../helpers/store.helper'
+
+const here = 'settings'
 
 export default {
 
-  setProp: (state, key, value) => {
-    return saveState('settings', update(state, { settings: { [key]: { $set: value } } }))
-  },
+  setProp: (state, key, value) =>
+    saveState(here, setIn(state, here, key, value)),
 
   setTheme: (state, theme) => {
-    document.body.style = themes[theme]
-    return saveState('settings', update(state, { settings: { theme: { $set: theme } } }))
+    updateTheme(theme)
+    return saveState(here, setIn(state, here, 'theme', theme))
   }
 }

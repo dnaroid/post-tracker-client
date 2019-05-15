@@ -1,9 +1,11 @@
-import update from 'immutability-helper/index'
+import { setIn } from '../helpers/store.helper'
+
+const here = 'track'
 
 export default {
 
   updateTrackProp: (state, key, value) =>
-    update(state, { track: { [key]: { $set: value } } }),
+    setIn(state, here, key, value),
 
   submitTrack: async (state) => {
     const { email, password } = state.user

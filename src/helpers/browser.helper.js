@@ -1,3 +1,5 @@
+import themes from '../config/themes'
+
 export const saveString = (key, value) =>
   localStorage.setItem(key, value)
 
@@ -13,4 +15,8 @@ export const loadObject = (key, defaultValue = {}, cb) => {
 
 export const saveObject = (key, obj) => {
   saveString(key, JSON.stringify({ ...obj, __updated: (new Date().getTime()) }))
+}
+
+export const updateTheme = theme => {
+  document.body.style = themes[theme]
 }

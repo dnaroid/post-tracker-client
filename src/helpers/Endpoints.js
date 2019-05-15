@@ -1,3 +1,6 @@
+import { route } from 'preact-router'
+import { ROUTE } from '../config/strings'
+
 export default class Endpoints {
   _host = ''
 
@@ -36,6 +39,9 @@ class Endpoint {
         return response.json()
       })
       .catch(err => {
+        if (err.status && err.status === 401) {
+          route(ROUTE.Authorisation)
+        }
         if (err.text) {
           err.text().then(errorMessage => { console.warn(errorMessage) })
         }
